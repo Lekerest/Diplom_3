@@ -20,9 +20,7 @@ class TestWebCrossing:
         web.click_on_button_constructor()
         with allure.step("Проверка, что URL после перехода совпадает с ожидаемым"):
             actual_url = web.get_url()
-            assert actual_url == Urls.MAIN_PAGE, (
-                f"Ожидался переход на {Urls.MAIN_PAGE}, но получен {actual_url}"
-            )
+            assert actual_url == Urls.MAIN_PAGE, f"Ожидался переход на {Urls.MAIN_PAGE}, но получен {actual_url}"
 
     @allure.title("Открытие окна ингредиента при клике")
     @allure.description("Проверка, что при нажатии на ингредиент открывается окно с информацией")
@@ -88,5 +86,4 @@ class TestWebCrossing:
         with allure.step("Проверка, что счётчик увеличился на 1 после добавления ингредиента"):
             assert new_value == old_value + 2, (
                 f"Ожидалось, что счётчик увеличится с {old_value} до {old_value + 2}, "
-                f"но фактически: {new_value}"
-            )
+                f"но фактически: {new_value}")
