@@ -34,7 +34,7 @@ class TestMainFunctions:
         web.click_on_order_feed()
         with allure.step("Проверка, что URL после перехода совпадает с ожидаемым"):
             actual_url = web.get_url()
-            assert actual_url == Urls.MAIN_PAGE, f"Ожидался переход на {Urls.MAIN_PAGE}, но получен {actual_url}"
+            assert actual_url == Urls.ORDER_FEED_PAGE, f"Ожидался переход на {Urls.ORDER_FEED_PAGE}, но получен {actual_url}"
 
     @allure.title("Проверка отображения кнопки закрытия информации")
     @allure.description("Проверка, что при открытии информации об ингредиенте видна кнопка закрытия")

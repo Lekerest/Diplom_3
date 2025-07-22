@@ -19,6 +19,8 @@ class HelpersFunctions:
 
         main_page = MainPage(driver)
         order_page = OrderFeedPage(driver)
+
+        #Даже с этим ожиданием в мазиле тест падает.
         main_page.wait_for_order_feed_button_clickable()
         main_page.click_on_order_feed()
 
