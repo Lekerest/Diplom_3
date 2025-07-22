@@ -77,19 +77,9 @@ class BasePage:
           """
         self.driver.execute_script(js, source, target)
 
-    # @allure.step('Ввод значения в элемент {locator}')
-    # def send_keys_to_element(self, locator, value):
-    #     return self.find_element(locator).send_keys(value)
-    #
-    # @allure.step('Скролл к элементу {locator}')
-    # def scroll_to(self, locator):
-    #     element = self.find_element(locator)
-    #     return self.driver.execute_script("arguments[0].scrollIntoView();", element)
-    #
-    # @allure.step('Переход к элементу {locator}')
-    # def scroll_to_element(self, locator):
-    #     return self.scroll_to(locator)
-    #
+    @allure.step('Ввод значения в элемент {locator}')
+    def send_keys_to_element(self, locator, value):
+        return self.find_element(locator).send_keys(value)
 
     @allure.step('Ожидание изменения URL с {old_url}')
     def wait_for_url_change(self, old_url, timeout=5):
@@ -113,12 +103,19 @@ class BasePage:
     def wait_for_element_invisible(self, locator, timeout=5):
         return WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located(locator))
 
+    @allure.step('Ожидание, что элемент {locator} станет кликабельным')
+    def wait_for_element_clickable(self, locator, timeout=5):
+        return WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
+
     @allure.step('Проверка, отображается ли элемент {locator}')
     def is_element_displayed(self, locator):
         try:
             return self.find_element(locator).is_displayed()
         except NoSuchElementException:
             return False
+
+    def is_element_invisibility(self, locator):
+        return WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))
 
     @allure.step('Получить текст элемента {locator}')
     def get_text(self, locator):
@@ -132,4 +129,13 @@ class BasePage:
     def wait_for_text_change(self, locator, old_text, timeout=5):
         WebDriverWait(self.driver, timeout).until(lambda d: d.find_element(*locator).text != old_text)
 
+    @allure.step("Ожидание, пока элемент {locator} получит непустой текст")
+    def wait_for_element_text_not_empty(self, locator, timeout=10):
+        def text_is_not_empty(driver):
+            try:
+                element = driver.find_element(*locator)
+                return element.text.strip() != ''
+            except NoSuchElementException:
+                return False
 
+        WebDriverWait(self.driver, timeout).until(text_is_not_empty)

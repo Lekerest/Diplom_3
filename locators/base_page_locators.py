@@ -13,3 +13,9 @@ class LocatorsGeneral:
     CONSTRUCTOR_AREA =  (By.CSS_SELECTOR, ".BurgerConstructor_basket__list__l9dp_")
 
     COUNTER_PURPLE_BULKA = (By.CSS_SELECTOR, ".counter_counter__num__3nue1")
+
+    BUTTON_ORDER_CREATE = (By.CSS_SELECTOR, ".button_button__33qZ0.button_button_type_primary__1O7Bx.button_button_size_large__G21Vg")
+
+    ORDER_NUMBER = (By.CSS_SELECTOR, ".Modal_modal__title_shadow__3ikwq.Modal_modal__title__2L34m.text.text_type_digits-large.mb-8")
+
+    BLOCK = (By.CSS_SELECTOR, "div.Modal_modal_overlay__x2ZCr")

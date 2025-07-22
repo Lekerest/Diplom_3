@@ -1,11 +1,10 @@
 import allure
 import pytest
-from locators.base_page_locators import LocatorsGeneral
 from pages.main_page import MainPage
 from urls import Urls
 
 
-class TestWebCrossing:
+class TestMainFunctions:
 
     @allure.title("Переход по кнопке 'Конструктор'")
     @allure.description("Проверка перехода на главную страницу при нажатии на кнопку 'Конструктор'")
@@ -15,27 +14,27 @@ class TestWebCrossing:
             {'browser': 'firefox', 'start': 2},
         ], indirect=True
     )
-    def test_crossing(self, driver):
+    def test_click_on_button_constructor(self, driver):
         web = MainPage(driver)
         web.click_on_button_constructor()
         with allure.step("Проверка, что URL после перехода совпадает с ожидаемым"):
             actual_url = web.get_url()
             assert actual_url == Urls.MAIN_PAGE, f"Ожидался переход на {Urls.MAIN_PAGE}, но получен {actual_url}"
 
-    @allure.title("Открытие окна ингредиента при клике")
-    @allure.description("Проверка, что при нажатии на ингредиент открывается окно с информацией")
+    @allure.title("Переход по кнопке 'Лента Заказов'")
+    @allure.description("Проверка перехода на главную страницу при нажатии на кнопку 'Лента Заказов'")
     @pytest.mark.parametrize('driver',
         [
-            {'browser': 'chrome', 'start': 1},
-            {'browser': 'firefox', 'start': 1},
+            {'browser': 'chrome', 'start': 2},
+            {'browser': 'firefox', 'start': 2},
         ], indirect=True
     )
-    def test_click_on_ingredient_open_info(self, driver):
+    def test_click_on_button_order_feed(self, driver):
         web = MainPage(driver)
-        web.click_on_ingredient_purple_bulka()
-        with allure.step("Проверка, что отображается кнопка закрытия информации"):
-            is_displayed = web.is_element_displayed(LocatorsGeneral.BUTTON_CLOSE_INFO)
-            assert is_displayed, "Кнопка закрытия информации не отображается при клике на ингредиент"
+        web.click_on_order_feed()
+        with allure.step("Проверка, что URL после перехода совпадает с ожидаемым"):
+            actual_url = web.get_url()
+            assert actual_url == Urls.MAIN_PAGE, f"Ожидался переход на {Urls.MAIN_PAGE}, но получен {actual_url}"
 
     @allure.title("Проверка отображения кнопки закрытия информации")
     @allure.description("Проверка, что при открытии информации об ингредиенте видна кнопка закрытия")
@@ -70,7 +69,7 @@ class TestWebCrossing:
             assert not is_still_visible, "Окно информации не было закрыто после нажатия на крестик"
 
     @allure.title("Добавление ингредиента увеличивает счётчик")
-    @allure.description("Проверка, что при добавлении ингредиента в конструктор счётчик увеличивается на 1")
+    @allure.description("Проверка, что при добавлении ингредиента в конструктор счётчик увеличивается на 2")
     @pytest.mark.parametrize('driver',
         [
             {'browser': 'chrome', 'start': 1},
@@ -83,7 +82,7 @@ class TestWebCrossing:
         web.drag_ingredient_to_constructor_js()
         web.wait_until_counter_changes(old_value)
         new_value = web.get_counter_value_purple_bulka()
-        with allure.step("Проверка, что счётчик увеличился на 1 после добавления ингредиента"):
+        with allure.step("Проверка, что счётчик увеличился на 2 после добавления ингредиента"):
             assert new_value == old_value + 2, (
                 f"Ожидалось, что счётчик увеличится с {old_value} до {old_value + 2}, "
                 f"но фактически: {new_value}")
