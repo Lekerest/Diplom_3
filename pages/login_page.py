@@ -6,12 +6,12 @@ from pages.base_page import BasePage
 class LoginPage(BasePage):
 
     @allure.step("Ввод email")
-    def input_email(self):
-        return self.send_keys_to_element(LocatorsLogin.FIELD_EMAIL, "Ivan_Hritankov_123@ya.ru")
+    def input_email(self, text):
+        return self.send_keys_to_element(LocatorsLogin.FIELD_EMAIL, text)
 
     @allure.step("Ввод password")
-    def input_password(self):
-        return self.send_keys_to_element(LocatorsLogin.FIELD_PASSWORD, "test123qweasdzxcvfr")
+    def input_password(self, text):
+        return self.send_keys_to_element(LocatorsLogin.FIELD_PASSWORD, text)
 
     @allure.step("Клик по кнопке войти")
     def click_on_button_entrance(self):
